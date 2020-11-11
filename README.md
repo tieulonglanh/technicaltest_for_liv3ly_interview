@@ -12,6 +12,15 @@ This README will guide you how to setup this project.
 
 ### How do I get set up? ###
 
+* composer install
+* cp .env.example .env
+* create database name: technicaltestforliv3lyinterview
+* update database config to your local machine config
+* php artisan migrate
+* php artisan passport:install
+
+
+
 * Summary of set up
 * Configuration
 * Dependencies

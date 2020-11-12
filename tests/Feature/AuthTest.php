@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use Laravel\Passport\Passport;
+
 
 
 
@@ -17,14 +19,13 @@ class AuthTest extends TestCase
     public function userCanRegister()
     {
         $password = $this->faker->password;
-        $data = [
+        $register = [
             'name' => $this->faker->name,
-            'email' => $this->faker->email
+            'email' => $this->faker->email,
+            'password' => $password,
+            'password_confirmation' => $password
         ];
 
-        $register = $data;
-        $register['password'] = $password;
-        $register['password_confirmation'] = $password;
         $response = $this->post('/api/auth/register', $register);
         $response->assertStatus(200)
                 ->assertJsonStructure([
@@ -109,11 +110,30 @@ class AuthTest extends TestCase
             'remember_me' => true
         ];
         $response = $this->post('/api/auth/login', $data);
-        $response
-            ->assertStatus(401)
+        $response->assertStatus(401)
             ->assertJson([
                 'message' => 'Login Fail!',
                 'data' => []
+            ]);
+    }
+
+    /** @test */
+    public function userCanLogout()
+    {
+        $user = User::factory()->create();
+
+        Passport::actingAs($user);
+
+        $response = $this->get('api/auth/logout');
+        $response->assertStatus(200)
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'message',
+                'data' => [
+                    'id',
+                    'name',
+                    'email'
+                ]
             ]);
     }
 }

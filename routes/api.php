@@ -19,5 +19,19 @@ Route::group([
 ], function () {
     Route::post('register', 'App\Http\Controllers\AuthController@register');
     Route::post('login', 'App\Http\Controllers\AuthController@login');
-
+    Route::group([
+        'middleware' => 'auth:api'
+      ], function() {
+          Route::get('logout', 'App\Http\Controllers\AuthController@logout');
+    });
+});
+Route::group([
+    'prefix' => 'v1'
+], function () {
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function() {
+        Route::post('users', 'App\Http\Controllers\UserController@create');
+        Route::get('users/{id}', 'App\Http\Controllers\UserController@view');
+    });
 });

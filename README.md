@@ -18,15 +18,8 @@ This README will guide you how to setup this project.
 * update database config to your local machine config
 * php artisan migrate
 * php artisan passport:install
+* vendor/bin/phpunit tests/Feature/.
 
-
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
 
 ### Contribution guidelines ###
 

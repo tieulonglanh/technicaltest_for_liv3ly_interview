@@ -7,6 +7,7 @@ This README will guide you how to setup this project.
 
 * Project technical test for Liv3ly interview
 * Version 1.0
+* PHP 7.4
 * Build wiht Laravel 8.x
 * Database Mariadb 10.x
 

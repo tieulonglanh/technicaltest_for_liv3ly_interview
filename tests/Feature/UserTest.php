@@ -94,13 +94,46 @@ class UserTest extends TestCase
                 ]);
     }
 
+    /** @test */
     public function canUpdateUser()
     {
+        $user = User::factory()->create();
+        Passport::actingAs($user);
 
+        $response = $this->patch('/api/v1/users/' . $user->id);
+
+        $response->assertStatus(200)
+                ->assertJsonStructure([
+                    'message',
+                    'data' => [
+                        'id',
+                        'name',
+                        'email',
+                        'created_at',
+                        'updated_at'
+                    ]
+                ]);
     }
 
+    /** @test */
     public function canNotUpdateOtherUser()
     {
+        $user = User::factory()->create();
+        Passport::actingAs($user);
 
+        $data = [
+            'name' => $this->faker->name,
+            'email' => $this->faker->name,
+            'password' => $this->faker->password
+        ];
+        $newUser = User::factory()->create($data);
+        $data['id'] = $newUser->id;
+        $response = $this->patch('/api/v1/users/' . $newUser->id, $data);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'message' => 'Could not update other profile.',
+                'data' => []
+                ]);
     }
 }

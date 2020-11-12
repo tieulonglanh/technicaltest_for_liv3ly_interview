@@ -12,20 +12,17 @@ This README will guide you how to setup this project.
 
 ### How do I get set up? ###
 
-* composer install
-* cp .env.example .env
-* create database name: technicaltestforliv3lyinterview
-* update database config to your local machine config
-* php artisan migrate
-* php artisan passport:install
-* vendor/bin/phpunit tests/Feature/.
+* Install project
+- composer install
+- cp .env.example .env
+- create database name: technicaltestforliv3lyinterview
+- update database config to match with your local machine config
+- php artisan migrate
+- php artisan passport:install
 
+* run test:
+- vendor/bin/phpunit tests/Feature/.
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
 
 ### Who do I talk to? ###
 

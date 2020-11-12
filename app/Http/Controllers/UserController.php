@@ -66,4 +66,35 @@ class UserController extends Controller {
         }
     }
 
+    public function update($id, Request $request)
+    {
+        $user = $request->user();
+        if($user->id != $id) {
+            return response()->json([
+                'message' => 'Could not update other profile.',
+                'data' => []
+            ], 422);
+        }
+
+        $result = $user->update($request->all());
+
+        if($result) {
+            return response([
+                'message' => 'Updated user successfully',
+                'data' => [
+                'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'created_at' => $user->created_at,
+                    'updated_at' => $user->updated_at
+                ]
+            ], 200);
+        } else {
+            return response()->json([
+                    'message' => 'Unknow error.',
+                    'data' => []
+            ], 500);
+        }
+    }
+
 }

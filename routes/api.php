@@ -33,5 +33,6 @@ Route::group([
     ], function() {
         Route::post('users', 'App\Http\Controllers\UserController@create');
         Route::get('users/{id}', 'App\Http\Controllers\UserController@view');
+        Route::patch('users/{id}', 'App\Http\Controllers\UserController@update');
     });
 });
